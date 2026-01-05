@@ -12,7 +12,8 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        //
+        $activities = Activity::all();
+        return view('activities.index', compact('activities'));
     }
 
     /**
@@ -20,7 +21,9 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        //
+        $customers = \App\Models\Customer::all();
+        $exercises = \App\Models\Exercise::all();
+        return view('activities.create', compact('customers', 'exercises'));
     }
 
     /**
@@ -28,7 +31,8 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Activity::create($request->all());
+        return redirect()->route('activities.index');
     }
 
     /**
@@ -36,7 +40,7 @@ class ActivityController extends Controller
      */
     public function show(Activity $activity)
     {
-        //
+        return view('activities.show', compact('activity'));
     }
 
     /**
@@ -44,7 +48,9 @@ class ActivityController extends Controller
      */
     public function edit(Activity $activity)
     {
-        //
+        $customers = \App\Models\Customer::all();
+        $exercises = \App\Models\Exercise::all();
+        return view('activities.edit', compact('activity', 'customers', 'exercises'));
     }
 
     /**
@@ -52,7 +58,8 @@ class ActivityController extends Controller
      */
     public function update(Request $request, Activity $activity)
     {
-        //
+        $activity->update($request->all());
+        return redirect()->route('activities.index');
     }
 
     /**
@@ -60,6 +67,7 @@ class ActivityController extends Controller
      */
     public function destroy(Activity $activity)
     {
-        //
+        $activity->delete();
+        return redirect()->route('activities.index');
     }
 }

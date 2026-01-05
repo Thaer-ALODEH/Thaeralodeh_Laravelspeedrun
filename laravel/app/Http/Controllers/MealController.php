@@ -12,7 +12,8 @@ class MealController extends Controller
      */
     public function index()
     {
-        //
+        $meals = Meal::all();
+        return view('meals.index', compact('meals'));
     }
 
     /**
@@ -20,7 +21,9 @@ class MealController extends Controller
      */
     public function create()
     {
-        //
+        $customers = \App\Models\Customer::all();
+        $foods = \App\Models\Food::all();
+        return view('meals.create', compact('customers', 'foods'));
     }
 
     /**
@@ -28,7 +31,8 @@ class MealController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Meal::create($request->all());
+        return redirect()->route('meals.index');
     }
 
     /**
@@ -36,7 +40,7 @@ class MealController extends Controller
      */
     public function show(Meal $meal)
     {
-        //
+        return view('meals.show', compact('meal'));
     }
 
     /**
@@ -44,7 +48,9 @@ class MealController extends Controller
      */
     public function edit(Meal $meal)
     {
-        //
+        $customers = \App\Models\Customer::all();
+        $foods = \App\Models\Food::all();
+        return view('meals.edit', compact('meal', 'customers', 'foods'));
     }
 
     /**
@@ -52,7 +58,8 @@ class MealController extends Controller
      */
     public function update(Request $request, Meal $meal)
     {
-        //
+        $meal->update($request->all());
+        return redirect()->route('meals.index');
     }
 
     /**
@@ -60,6 +67,7 @@ class MealController extends Controller
      */
     public function destroy(Meal $meal)
     {
-        //
+        $meal->delete();
+        return redirect()->route('meals.index');
     }
 }

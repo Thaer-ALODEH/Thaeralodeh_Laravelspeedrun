@@ -12,7 +12,8 @@ class ExerciseController extends Controller
      */
     public function index()
     {
-        //
+        $exercises = Exercise::all();
+        return view('exercises.index', compact('exercises'));
     }
 
     /**
@@ -20,7 +21,7 @@ class ExerciseController extends Controller
      */
     public function create()
     {
-        //
+        return view('exercises.create');
     }
 
     /**
@@ -28,7 +29,8 @@ class ExerciseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Exercise::create($request->all());
+        return redirect()->route('exercises.index');
     }
 
     /**
@@ -36,7 +38,7 @@ class ExerciseController extends Controller
      */
     public function show(Exercise $exercise)
     {
-        //
+        return view('exercises.show', compact('exercise'));
     }
 
     /**
@@ -44,7 +46,7 @@ class ExerciseController extends Controller
      */
     public function edit(Exercise $exercise)
     {
-        //
+        return view('exercises.edit', compact('exercise'));
     }
 
     /**
@@ -52,7 +54,8 @@ class ExerciseController extends Controller
      */
     public function update(Request $request, Exercise $exercise)
     {
-        //
+        $exercise->update($request->all());
+        return redirect()->route('exercises.index');
     }
 
     /**
@@ -60,6 +63,7 @@ class ExerciseController extends Controller
      */
     public function destroy(Exercise $exercise)
     {
-        //
+        $exercise->delete();
+        return redirect()->route('exercises.index');
     }
 }
